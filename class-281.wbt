@@ -1,0 +1,211 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/OsbWood.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.08488220669107274 0.0190931774755897 -0.9962080413051982 2.7007071047064493
+  position 1.6011152823990942 0.42542967360218664 0.4202791517710297
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 -0.06 0
+}
+PointLight {
+  attenuation 0 0 1
+  intensity 0.6
+  location 0.6 0 0
+}
+DEF SLOPE Solid {
+  translation 0 0 0.15
+  rotation 0 1 0 0.4
+  children [
+    Shape {
+      appearance OsbWood {
+        textureTransform TextureTransform {
+        }
+      }
+      geometry DEF BOX0 Box {
+        size 0.8 0.2 0.2
+      }
+    }
+  ]
+}
+Robot {
+  translation 0.286 0 0.286
+  rotation -0.9284766908852594 -0.3713906763541037 0 -1.3089969389957472
+  children [
+    Pose {
+      translation 0 0 0.0415
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.9 0.4 0.8
+            roughness 1
+            metalness 0
+          }
+          geometry DEF BODY Cylinder {
+            height 0.08
+            radius 0.045
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        PositionSensor {
+          name "Left Wheel Censors"
+        }
+        RotationalMotor {
+          name "Left Wheel Motor"
+          consumptionFactor 70
+        }
+      ]
+      endPoint Solid {
+        rotation 0 1 0 0
+        children [
+          DEF WHEEL Pose {
+            rotation 0.577883556445323 0.5770834407562329 -0.5770834407562329 -2.09
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 1 0 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.025
+                }
+              }
+            ]
+            rotationStep 0.262
+          }
+        ]
+      }
+    }
+    DistanceSensor {
+      translation 0.042 0.02 0.063
+      rotation 0 0 -1 -0.499
+      children [
+        DEF DF_Sensor Pose {
+          rotation 0.577656895078166 0.5771968951617173 -0.5771968951617173 -2.09394
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0.333333 0
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.004
+                radius 0.008
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0"
+    }
+    Pose {
+    }
+    DEF ds1 DistanceSensor {
+      translation 0.042 -0.02 0.063
+      rotation 0 0 1 -0.500795
+      children [
+        DEF DF_Sensor Pose {
+          rotation 0.577656895078166 0.5771968951617173 -0.5771968951617173 -2.09394
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0.333333 0
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.004
+                radius 0.008
+              }
+            }
+          ]
+          rotationStep 0.262
+        }
+      ]
+      name "ds0(1)"
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        RotationalMotor {
+          name "Right Wheel Motor"
+        }
+      ]
+      endPoint Solid {
+        translation 0 -0.045 0.025
+        rotation 0.5773502691896258 -0.5773502691896258 -0.5773502691896258 2.0944
+        children [
+          USE WHEEL
+          Pose {
+          }
+        ]
+        name "solid(2)"
+      }
+    }
+    DEF Right_Wheel_Motor HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        PositionSensor {
+          name "Left Wheel Censors"
+        }
+        RotationalMotor {
+          name "Left Wheel Motor"
+          consumptionFactor 70
+        }
+      ]
+      endPoint Solid {
+        rotation 0 1 0 0
+        children [
+          DEF WHEEL Pose {
+            rotation 0.577883556445323 0.5770834407562329 -0.5770834407562329 -2.09
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 1 0 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.025
+                }
+              }
+            ]
+            rotationStep 0.262
+          }
+        ]
+        name "solid(1)"
+      }
+    }
+    Altimeter {
+    }
+  ]
+  name "mybot"
+  contactMaterial "body"
+}
